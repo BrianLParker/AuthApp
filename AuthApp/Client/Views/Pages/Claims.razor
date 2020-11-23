@@ -1,0 +1,45 @@
+﻿@page "/claims"
+
+<h3>Claims Principal Data</h3>
+
+<button class="btn btn-info" @onclick="GetClaimsPrincipalData">Get Claims Principal Data</button>
+
+<div class="my-3">@authMessage</div>
+
+@if (claims.Count() > 0)
+{
+<table class="table p-5">
+    <tbody>
+        <tr>
+            <th>User Id</th>
+            <td>@userId</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@email</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-hover table-sm p-5">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in claims)
+        {
+        <tr>
+            <td>
+
+                @claim.Type
+            </td>
+            <td>
+                @claim.Value
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

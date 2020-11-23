@@ -1,0 +1,24 @@
+﻿@if (visible)
+{
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <h4 class="alert-heading">@((MarkupString)Title)</h4>
+    <hr>
+    <p>@ChildContent</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @onclick="CloseMe">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Warning";
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    bool visible = true;
+    void CloseMe()
+    {
+        visible = false;
+    }
+}

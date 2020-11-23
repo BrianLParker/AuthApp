@@ -1,0 +1,13 @@
+﻿@page "/adults"
+@inherits BaseFetchData<WeatherForecast>
+@attribute [Authorize( Policy = Policies.VerifiedAdult )]
+
+<h1>Adults Only</h1>
+
+<p>The page route and server api endpoint are both protected by a common policy <code>[Authorize(Policy="VerifiedAdult")]</code></p>
+
+<ForecastsTable Forecasts="@data" />
+
+<div class="text-danger">
+    @message
+</div>

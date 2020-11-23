@@ -1,6 +1,5 @@
 ﻿namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using AuthApp.Server.Models;
     using Microsoft.AspNetCore.Identity;
@@ -26,7 +25,7 @@
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public UserUpdateModel  Input { get; set; }      
+        public UserUpdateModel Input { get; set; }
 
         private async Task LoadAsync(ApplicationUser user)
         {
@@ -35,7 +34,7 @@
 
             Username = userName;
 
-            Input = new UserUpdateModel 
+            Input = new UserUpdateModel
             {
                 PhoneNumber = phoneNumber,
                 DisplayName = user.DisplayName,

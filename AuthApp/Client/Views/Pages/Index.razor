@@ -1,5 +1,52 @@
 ﻿@page "/"
-
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<AuthorizeView Context="authorized">
+    <Authorized>
+        <AuthorizeView Policy="@Policies.RequireDisplayName" Context="RequireDisplayName">
+            <NotAuthorized>
+                <WarningTile>
+                    Set your <a href="identity/account/manage">display name!</a>
+                </WarningTile>
+            </NotAuthorized>
+        </AuthorizeView>
+        <AuthorizeView Policy="@Policies.RequireDoB" Context="RequireDoB">
+            <NotAuthorized>
+                <WarningTile>
+                    Set your <a href="identity/account/manage">date of birth!</a>
+                </WarningTile>
+            </NotAuthorized>
+        </AuthorizeView>
+    </Authorized>
+    <NotAuthorized>
+        The following users and roles are seeded into the database for testing.
+        <ul>
+            <li>sally@sally.com (Administrator)</li>
+            <li>bob@bob.com (Moderator)</li>
+            <li>fred@fred.com (no roles)</li>
+            <li>abi@abi.com (multiple roles)</li>
+        </ul>
+        They all share the same password: "Passw0rd!"
+    </NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Policy="@Policies.Adult" Context="adult">
+    <Authorized>
+        <span class="badge badge-primary">You are over 18</span>
+    </Authorized>
+    <NotAuthorized>
+        <AuthorizeView Policy="@Policies.RequireDoB" Context="RequireDoB">
+            <span class="badge badge-info">You are under 18</span>
+        </AuthorizeView>
+    </NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Policy="@Policies.VerifiedDoB">
+    <span class="badge badge-success">Age Verified</span>
+</AuthorizeView>
+
+<AuthorizeView Policy="@Policies.VerifiedAdult">
+    <span class="badge badge-dark">Adult Access</span>
+</AuthorizeView>

@@ -7,21 +7,44 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
+              <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
+        <AuthorizeView>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="claims">
+                    <span class="oi oi-info" aria-hidden="true"></span> Claims
+                </NavLink>
+            </li>
+        </AuthorizeView>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
+        <AuthorizeView Context="authorized">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="fetchdata">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                </NavLink>
+            </li>
+            <AuthorizeView Roles="@Roles.Administrator" >
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="admins">
+                        <span class="oi oi-key" aria-hidden="true"></span> Administrators Only
+                    </NavLink>
+                </li>
+            </AuthorizeView>
+            <AuthorizeView Policy="@Policies.VerifiedAdult">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="adults">
+                        <span class="oi oi-key" aria-hidden="true"></span> Adults Only
+                    </NavLink>
+                </li>
+            </AuthorizeView>
+        </AuthorizeView>
     </ul>
 </div>
 

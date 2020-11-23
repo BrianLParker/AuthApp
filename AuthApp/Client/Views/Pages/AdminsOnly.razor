@@ -1,0 +1,13 @@
+﻿@page "/admins"
+@inherits BaseFetchData<WeatherForecast>
+@attribute [Authorize( Roles = Roles.Administrator )]
+
+<h1>Administrators Only</h1>
+
+<p>The page route and server api endpoint are both role based authorisation <code>[Authorize(Roles="Administrator")]</code></p>
+
+<ForecastsTable Forecasts="@data" />
+
+<div class="text-danger">
+    @message
+</div>
