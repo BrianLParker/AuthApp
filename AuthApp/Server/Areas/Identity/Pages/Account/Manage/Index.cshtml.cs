@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using AuthApp.Server.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
+﻿namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+    using AuthApp.Server.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -29,14 +26,7 @@ namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-        }
+        public UserUpdateModel  Input { get; set; }      
 
         private async Task LoadAsync(ApplicationUser user)
         {
@@ -45,9 +35,12 @@ namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
-            Input = new InputModel
+            Input = new UserUpdateModel 
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                DisplayName = user.DisplayName,
+                DateOfBirth = user.DateOfBirth,
+                DateOfBirthVerified = user.DateOfBirthVerified
             };
         }
 
@@ -87,7 +80,26 @@ namespace AuthApp.Server.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            var updates = false;
+            if (Input.DateOfBirth != user.DateOfBirth)
+            {
+                updates = true;
+                user.DateOfBirth = Input.DateOfBirth;
+            }
+            if (Input.DateOfBirthVerified != user.DateOfBirthVerified)
+            {
+                updates = true;
+                user.DateOfBirthVerified = Input.DateOfBirthVerified;
+            }
+            if (Input.DisplayName != user.DisplayName)
+            {
+                updates = true;
+                user.DisplayName = Input.DisplayName;
+            }
+            if (updates)
+            {
+                await _userManager.UpdateAsync(user);
+            }
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

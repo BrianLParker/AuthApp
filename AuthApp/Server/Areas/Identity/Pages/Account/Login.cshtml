@@ -10,9 +10,8 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
+                <h4>Local account log in.</h4>
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
@@ -31,19 +30,13 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex flex-row justify-content-end">
                     <button type="submit" class="btn btn-primary">Log in</button>
                 </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                <div class="form-group d-flex flex-column align-items-end">
+                    <a class="btn btn-link btn-sm" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>                  
+                    <a class="btn btn-link btn-sm" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    <a class="btn btn-link btn-sm" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                 </div>
             </form>
         </section>

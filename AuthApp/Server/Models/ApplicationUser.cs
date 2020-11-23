@@ -18,4 +18,5 @@
         [Column("DoBVerified")]
         public bool DateOfBirthVerified { get; set; }
     }
+
 }
