@@ -3,6 +3,9 @@ namespace AuthApp.Client
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using AuthApp.Client.Services;
+    using AuthApp.Shared.Brokers.Identities;
+    using AuthApp.Shared.Models;
     using AuthApp.Shared.Policies;
     using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -30,7 +33,13 @@ namespace AuthApp.Client
 
             builder.Services.AddPolicies();
 
-            await builder.Build().RunAsync();
+            builder.Services.AddScoped<IIdentityBroker, IdentityBroker>();
+            builder.Services.AddScoped<IdentityService>();
+
+
+            var host = builder.Build();
+            await host.Services.GetRequiredService<IdentityService>().Update();
+            await host.RunAsync();
         }
     }
 }
