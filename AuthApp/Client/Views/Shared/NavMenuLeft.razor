@@ -1,0 +1,18 @@
+﻿<div class="border rounded m-0 text-dark p-2 bg-white clean-view-shadow clean-view-text-shadow " style="min-width: 320px">
+    <NavPanel>
+        <NavPanelMenuItem Name="Home" Icon="oi-home" href="/" />
+        <AuthorizeView>
+            <NavPanelMenuItem Name="Claims" Icon="oi-info" href="/claims" />
+        </AuthorizeView>
+        <NavPanelMenuItem Name="Counter" Icon="oi-plus" href="counter" />
+        <AuthorizeView Context="authorized">
+            <NavPanelMenuItem Name="Fetch data" Icon="oi-list-rich" href="fetchdata" />
+            <AuthorizeView Roles="@Roles.Administrator">
+                <NavPanelMenuItem Name="Administrators Only" Icon="oi-key" href="admins" />
+            </AuthorizeView>
+            <AuthorizeView Policy="@Policies.VerifiedAdult">
+                <NavPanelMenuItem Name="Adults Only" Icon="oi-key" href="adults" />
+            </AuthorizeView>
+        </AuthorizeView>
+    </NavPanel>
+</div>

@@ -1,0 +1,27 @@
+﻿<div class="text-white flex-grow-1 mx-2 p-1 row">
+    <div class="col-sm">
+        <div class="header-title clean-view-text-shadow no-select">Auth App</div>
+        <AuthorizeView>
+            <Authorizing>
+                <em style="font-size:0.6em">Authenticating...</em>
+            </Authorizing>
+        </AuthorizeView>
+    </div>
+    <div class="col-sm  text-right">
+        <AuthorizeView>
+            <Authorizing>
+
+            </Authorizing>
+            <NotAuthorized>
+                <div class="header-title fade-out-delay">
+                    @($"{Greating}, click here to log in.")
+                </div>
+            </NotAuthorized>
+            <Authorized>
+                <div class="header-title fade-out-delay clean-view-text-shadow">
+                    @($"{Greating}, {IdentityModel.DisplayName}")
+                </div>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+</div>

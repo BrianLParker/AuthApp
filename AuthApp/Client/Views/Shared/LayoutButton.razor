@@ -1,0 +1,9 @@
+﻿<button @attributes="@AdditionalAttributes" @onclick="@(()=>LayoutService.IsCleanViewLayout=!LayoutService.IsCleanViewLayout)">Toggle</button>
+
+@code {
+    [Inject]
+    LayoutService LayoutService { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+}

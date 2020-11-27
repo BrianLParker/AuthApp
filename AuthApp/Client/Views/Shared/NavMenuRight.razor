@@ -1,0 +1,42 @@
+﻿@using AuthApp.Shared.Brokers.Identities
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<div class="border rounded m-0 text-dark p-2 bg-white clean-view-shadow clean-view-text-shadow " style="min-width: 320px">
+    <NavPanel>
+
+        <AuthorizeView Context="IPrinciple">
+            <Authorizing>
+                <em class="text-white">Authenticating...</em>
+            </Authorizing>
+            <Authorized>
+                <NavPanelMenuItem Name="@($"Hello, {IdentityModel.GetUserDisplayName()}")" Icon="oi-pencil" href="authentication/profile" />
+                <NavPanelMenuItem Name="Log out" Icon="oi-account-logout" @onclick="BeginSignOut" />
+            </Authorized>
+
+            <NotAuthorized>
+                <NavPanelMenuItem Name="Log in" Icon="oi-account-login" href="authentication/login" />
+                <NavPanelMenuItem Name="Register" Icon="oi-account-login" href="authentication/register" />
+            </NotAuthorized>
+        </AuthorizeView>
+    </NavPanel>
+</div>
+
+@code{
+    [Inject]
+    public SignOutSessionStateManager SignOutManager { get; set; }
+
+    [Inject]
+    public NavigationManager Navigation { get; set; }
+
+    [Inject]
+    IIdentityBroker IdentityBroker { get; set; }
+    IdentityModel IdentityModel => IdentityBroker?.IdentityModel;
+
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+
+    string ShortName(string email) => email.Split('@').FirstOrDefault() ?? string.Empty;
+}

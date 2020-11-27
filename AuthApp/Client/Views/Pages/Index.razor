@@ -28,23 +28,25 @@ Welcome to your new app.
 
 <AuthorizeView Policy="@Policies.Adult" Context="adult">
     <Authorized>
-        <span class="badge badge-primary">You are over 18</span>
+        <span class="badge badge-primary shadow-sm">You are over 18</span>
     </Authorized>
     <NotAuthorized>
         <AuthorizeView Policy="@Policies.RequireDoB" Context="RequireDoB">
-            <span class="badge badge-info">You are under 18</span>
+            <span class="badge badge-info shadow-sm">You are under 18</span>
         </AuthorizeView>
     </NotAuthorized>
 </AuthorizeView>
 
 <AuthorizeView Policy="@Policies.VerifiedDoB">
-    <span class="badge badge-success">Age Verified</span>
+    <span class="badge badge-success shadow-sm">Age Verified</span>
 </AuthorizeView>
 
 <AuthorizeView Policy="@Policies.VerifiedAdult">
-    <span class="badge badge-dark">Adult Access</span>
+    <span class="badge badge-dark shadow-sm">Adult Access</span>
 </AuthorizeView>
 
 <div class="mt-5 d-flex flex-row justify-content-end">
     <StackProfileLink Theme="@StackProfileTheme.Dark" />
 </div>
+
+<LayoutButton class="btn btn-outline-dark shadow" />

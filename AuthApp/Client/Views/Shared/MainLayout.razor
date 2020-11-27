@@ -1,5 +1,35 @@
 ﻿@inherits LayoutComponentBase
-
+@if (LayoutService.IsCleanViewLayout)
+{
+<CleanLayout CopyrightOwner="<Your Name>" CopyrightStart="1936">
+    <HeaderCenter>
+        <AppHeader />
+    </HeaderCenter>
+    <LeftMenuPanel>
+        <NavMenuLeft />
+    </LeftMenuPanel>
+    <LeftIcon>
+        <span class="oi oi-grid-three-up text-shadow" aria-hidden="true"></span>
+    </LeftIcon>
+    <RightIcon>
+        <span class="oi oi-cog text-shadow" aria-hidden="true"></span>
+    </RightIcon>
+    <RightMenuPanel>
+        <NavMenuRight />
+    </RightMenuPanel>
+    <Content>
+        <PageContainer>
+            <ScrollDiv>
+                <div class="bg-white-95 p-3 rounded">
+                    @Body
+                </div>
+            </ScrollDiv>
+        </PageContainer>
+    </Content>
+</CleanLayout>
+}
+else
+{
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -15,3 +45,4 @@
         </div>
     </div>
 </div>
+}
