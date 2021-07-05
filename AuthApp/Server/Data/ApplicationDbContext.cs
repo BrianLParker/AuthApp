@@ -12,5 +12,16 @@
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<UserCustomer> UserCustomers { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<UserCustomer>().HasKey(nameof(UserCustomer.UserId), nameof(UserCustomer.CustomerId));
+            base.OnModelCreating(builder);
+        }
+
     }
 }
